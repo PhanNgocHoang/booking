@@ -26,7 +26,11 @@ module.exports = {
     mongo: {
       path: path.resolve("server", "src", "apps", "models"),
       uri: process.env.MONGO_URI || "mongodb://127.0.0.1:27017",
-      options: {},
+      options: {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useFindAndModify:false
+      },
     },
   },
 };

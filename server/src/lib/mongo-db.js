@@ -26,6 +26,7 @@ const _mongoConnectSuccess = function () {
 const _mongodbDisconnected = function () {
   logger.info(`mongoose default connection is disconnected`);
 };
+mongoose.set("useCreateIndex", true);
 mongoose.connect(mongoConfig.uri, mongoConfig.options);
 
 mongoose.connection
