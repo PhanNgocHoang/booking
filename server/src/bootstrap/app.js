@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
+const passport = require("passport")
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -17,6 +18,8 @@ require("../lib/mongo-db");
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
 }
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(cors());
 
