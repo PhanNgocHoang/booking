@@ -2,6 +2,7 @@ const passport = require('passport')
 const passportFB = require('passport-facebook-token')
 const GooglePlusToken = require('passport-google-plus-token')
 const Users = require('../models/users.model')
+const LocalUser = require('passport-local')
 
 // passport-facebook
 passport.use(new passportFB({
@@ -23,7 +24,6 @@ async(accessToken, refreshToken, profile, done) => {
     await newUser.save()
     return done(null, newUser)
    } catch (error) {
-       console.log(error)
        done(error, false)
    } 
 }
@@ -50,3 +50,16 @@ passport.use(new GooglePlusToken({
    } 
 },
 ))
+//passport local
+passport.use(new LocalUser(async(username, password, done)=>{
+    try {
+        const user = await Users.findOne({email: username, authType: "local"})
+        const err = "Wrong email or password"
+        if(user && user.password == password) {
+            return done(null, user)
+        }
+        else {return done(err, false)}
+    } catch (error) {
+        return done(error, false)
+    }
+}))

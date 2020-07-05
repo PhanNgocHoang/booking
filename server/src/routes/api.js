@@ -6,9 +6,11 @@ const passport = require('passport')
 
 const apiRouter = Router();
 apiRouter.route('/facebook')
-.post(passport.authenticate('facebook-token', {session: false}), UserController.authFacebook)
+.post(passport.authenticate('facebook-token', {session: false}), UserController.auth)
 apiRouter.route('/google')
-.post(passport.authenticate('google-plus-token', {session: false}), UserController.authFacebook)
+.post(passport.authenticate('google-plus-token', {session: false}), UserController.auth)
+apiRouter.route('/local')
+    .post(passport.authenticate('local', {session: false}), UserController.auth)
 
 
 module.exports = apiRouter;
