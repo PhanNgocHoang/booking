@@ -4,6 +4,7 @@ const normalizePort = require("normalize-port");
 const path = require("path");
 
 module.exports = {
+  jwt_secret: 'NodejsAuthentication',
   app: {
     PORT: normalizePort(process.env.PORT) || 3000,
   },

@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
+const passport = require("passport")
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -17,6 +18,8 @@ require("../lib/mongo-db");
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
 }
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(cors());
 
@@ -32,6 +35,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", require("../routes/web"));
+app.use("/api", require("../routes/api"));
+
 
 // Not match router
 app.use("*", require("../apps/middlewares/not-match-router"));
