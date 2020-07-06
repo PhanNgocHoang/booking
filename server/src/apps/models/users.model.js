@@ -10,6 +10,7 @@ const UsersSchema = new Schema({
     authGoogleID:{type: String, default:null},
     authFacebookID:{type: String, default:null},
     role: {type: Number, required: true},
+    phoneNumber: {type: String, required: true},
 })
 const Users = mongoose.model('users', UsersSchema)
 module.exports = Users

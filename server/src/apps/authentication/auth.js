@@ -17,7 +17,7 @@ async(accessToken, refreshToken, profile, done) => {
     const newUser = new Users({
         authType: profile.provider,
         email: profile.emails[0].value,
-        authGoogleID: profile.id,
+        authFacebookID: profile.id,
         role: 1,
         name: profile.displayName,
     })
