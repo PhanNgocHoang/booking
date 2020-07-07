@@ -11,6 +11,8 @@ apiRouter.route('/google')
     .post(passport.authenticate('google-plus-token', {session: false}), UserController.authentication)
 apiRouter.route('/local')
     .post(passport.authenticate('local', {session: false}), UserController.authentication)
+apiRouter.route("/register")
+    .post(userController.register)
 
 
 module.exports = apiRouter;

@@ -4,7 +4,25 @@ const GooglePlusToken = require('passport-google-plus-token')
 const Users = require('../models/users.model')
 const LocalUser = require('passport-local')
 const bcrypt = require('bcryptjs')
+const { jwt_secret} = require("../../config/default")
+const jwtStrategy = require('passport-jwt').Strategy
+const { ExtractJwt } = require('passport-jwt')
 
+// passport-local
+passport.use(new jwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken("Authorization"),
+    secretOrKey: jwt_secret
+}, async (payload, done) => {
+    try {
+        console.log("payload", payload);
+        const user = await userModel.findById(payload.sub);
+        if (!user) return done(null, false)
+        done(null,user)
+        
+    } catch (error) {
+        done(error, false)
+    }    
+}));
 // passport-facebook
 passport.use(new passportFB({
     clientID: '607424970153093',
