@@ -1,10 +1,18 @@
 "use strict";
 const { Router } = require("express");
-const userController = require("../apps/controllers/site/user.controller")
-const apiRouter = Router();
+const UserController = require("../apps/controllers/user.controller");
+const auth = require("../apps/authentication/auth")
+const passport = require('passport')
 
+const apiRouter = Router();
+apiRouter.route('/facebook')
+    .post(passport.authenticate('facebook-token', {session: false}), UserController.authentication)
+apiRouter.route('/google')
+    .post(passport.authenticate('google-plus-token', {session: false}), UserController.authentication)
+apiRouter.route('/local')
+    .post(passport.authenticate('local', {session: false}), UserController.authentication)
 apiRouter.route("/register")
-    .post(userController.register);
+    .post(userController.register)
+
 
 module.exports = apiRouter;
-

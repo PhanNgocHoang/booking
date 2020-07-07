@@ -5,8 +5,7 @@ const BookingSchema = new Schema({
     startAt: {type: String, required: true},
     endAt: {type: String, required: true},
     price: {type: Number, required: true},
-    hotelId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'hotel'},
-    roomId: {type: mongoose.Schema.Types.ObjectId, required: true},
+    roomId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'rooms'},
     customerId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
     status: {type: String, required: true},
     numberCustomer: [
@@ -16,4 +15,4 @@ const BookingSchema = new Schema({
         }
     ]
 })
-const Booking = mongoose.model('booking', BookingSchema)
+const Booking = mongoose.model('bookings', BookingSchema)

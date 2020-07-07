@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", require("../routes/web"));
-app.use("/api", require("../routes/api"));
+app.use("/auth", require("../routes/api.js"))
 
 
 // Not match router
