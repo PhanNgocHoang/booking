@@ -3,6 +3,7 @@ const passportFB = require('passport-facebook-token')
 const GooglePlusToken = require('passport-google-plus-token')
 const Users = require('../models/users.model')
 const LocalUser = require('passport-local')
+const bcrypt = require('bcryptjs')
 
 // passport-facebook
 passport.use(new passportFB({
@@ -55,7 +56,7 @@ passport.use(new LocalUser(async(username, password, done)=>{
     try {
         const user = await Users.findOne({email: username, authType: "local"})
         const err = "Wrong email or password"
-        if(user && user.password == password) {
+        if(user && bcrypt.compare(password, user.password)) {
             return done(null, user)
         }
         else {return done(err, false)}
