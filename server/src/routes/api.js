@@ -12,7 +12,7 @@ apiRouter.route('/google')
 apiRouter.route('/local')
     .post(passport.authenticate('local', {session: false}), UserController.authentication)
 apiRouter.route("/register")
-    .post(userController.register)
+    .post(UserController.register)
 
 
 module.exports = apiRouter;
