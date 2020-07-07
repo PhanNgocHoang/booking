@@ -1,9 +1,9 @@
 const { Router } = require("express")
 const AdminController = require("../apps/controllers/admin/manageUser.controller")
-const checkLogin = require("../apps/middlewares/checkLogin")
+const check = require("../apps/middlewares/check")
 
 const apiRouter = Router()
-apiRouter.use('/admin', checkLogin.Login)
+apiRouter.use('/admin', check.checkLogin, check.checkAdmin)
 apiRouter.route("/admin")
     .get(AdminController.test)
 

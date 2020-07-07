@@ -44,7 +44,7 @@ exports.authentication = catchAsync(async (req, res) => {
     const newUser = new Users({ name, password, email, role })
     newUser.save();
     // Encode
-    const token = encodeToken(newUser._id);
+    const token = encodeToken(newUser._id, newUser.email);
     res.setHeader("Authorization", token);
     return res.status(201).json({ success: true }); 
 }
