@@ -5,7 +5,7 @@ module.exports.index = (req) => {
   const limit = req.query.limit || 2;
   const skip = (currentPage - 1) * limit;
   const next = currentPage +1;
-  const prew = currentPage - 1;
-  return { limit, currentPage, skip}
+  const prev = currentPage - 1;
+  return { limit, currentPage, skip, next , prev}
   }
 
