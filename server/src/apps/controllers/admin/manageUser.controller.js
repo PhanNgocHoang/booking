@@ -4,13 +4,11 @@ const User = mongoose.model("users");
 const pagination = require("./../../../lib/pagination");
 const { BadRequestException } = require("../../exceptions/index");
 const { error } = require("winston");
-
 module.exports.user = async (req, res, next) => {
   try {
     const { limit, currentPage, skip , next, prev } = pagination.index(req);
     const totalDocument = await User.find().countDocuments();
     const totalPages = Math.ceil(totalDocument / limit);
-    // console.log(totalPages);
     const users = await User.find({}, ["email", "name"])
       .sort("-_id")
       .limit(limit)
@@ -20,7 +18,7 @@ module.exports.user = async (req, res, next) => {
     res.status(400).json({message: error.message})
   }
 };
-module.exports.add_user = async (req, res) => {
+module.exports.add_user = async (req, res, next) => {
   const bodySchema = joi
     .object({
       email: joi.string().required(),
@@ -51,14 +49,11 @@ module.exports.get_user = async (req, res, next) => {
     if (user) {
       return res.status(201).json({ status: "success", user });
     }
-    else {
-      throw error
-    }
   } catch (error) {
-    res.status(401).json({ status: "fail", message: "Not find user" });
+    next(error)
   }   
 }
-module.exports.edit_user = async (req, res) => {
+module.exports.edit_user = async (req, res,next) => {
     const { id } = req.params;
      const bodySchema = joi
     .object({
@@ -83,15 +78,15 @@ module.exports.edit_user = async (req, res) => {
     await User.updateOne({ _id: id }, userUpdate);
     return res.status(200).json({success: true})  
 };
-module.exports.delete_user = async (req, res) => {
+module.exports.delete_user = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (mongoose.Types.ObjectId.isValid(id)) {
       await User.findByIdAndDelete(id);
       return res.status(200).json({ success: true })
+      throw error;
     }
-    else { throw  error}
   } catch (error) {
-    return res.status(400).json({ message: " Not exist user !!!" })
+    next(error)
   }
 };
