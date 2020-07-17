@@ -7,6 +7,6 @@ const passport = require('passport')
 
 const webRouter = Router();
 
-webRouter.get("/", HomeController.home);
+webRouter.get("/*", HomeController.home);
 
 module.exports = webRouter;
