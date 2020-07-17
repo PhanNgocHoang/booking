@@ -11,7 +11,11 @@ const UsersSchema = new Schema({
     authGoogleID:{type: String, default:null},
     authFacebookID:{type: String, default:null},
     role: {type: Number, required: true},
-    phoneNumber: {type: String, required: true},
+    phoneNumber: { type: String, required: true },
+    address: { type: String, required: true },
+    date: { type: Date, required: true },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
+    description: { type: String, require: true }
 });
 // ma hoa
 UsersSchema.pre("save", async function(next) {

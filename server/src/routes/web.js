@@ -8,5 +8,9 @@ const passport = require('passport')
 const webRouter = Router();
 
 webRouter.get("/", HomeController.home);
+webRouter.route("/user/edit/:id")
+  .get(HomeController.getUser)
+  .put(HomeController.editUser)
+
 
 module.exports = webRouter;
