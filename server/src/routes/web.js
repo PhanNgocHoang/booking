@@ -11,6 +11,6 @@ webRouter.get("/", HomeController.home);
 webRouter.route("/user/edit/:id")
   .get(HomeController.getUser)
   .put(HomeController.editUser)
-
-
+webRouter.route("/user/change-password/:id")
+  .put(HomeController.changePassword)
 module.exports = webRouter;

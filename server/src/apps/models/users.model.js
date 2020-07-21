@@ -12,24 +12,18 @@ const UsersSchema = new Schema({
     authFacebookID:{type: String, default:null},
     role: {type: Number, required: true},
     phoneNumber: { type: String, required: true },
-    address: { type: String, required: true },
-    date: { type: Date, required: true },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
-    description: { type: String, require: true }
+    address: { type: String },
+    date: { type: Date },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'] },
+    description: { type: String }
 });
 // ma hoa
 UsersSchema.pre("save", async function(next) {
-    try {
-        console.log("pass",this.password);
-        
+    try {     
         // generate a salt
         const salt = await bcrypt.genSalt(10);
-       console.log("salt",salt);
-        
         // generate a pass hash 
-        const passwordHashed = await bcrypt.hash(this.password, salt);
-        console.log("Hash",passwordHashed);
-        
+        const passwordHashed = await bcrypt.hash(this.password, salt);       
         // re-assign pass hashed
         this.password = passwordHashed;
    //     return false;

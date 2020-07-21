@@ -1,11 +1,13 @@
 "use strict";
 const { catchAsync } = require("../../../lib/utils");
+const {BadRequestException} = require("../../exceptions")
 const JWT = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const joi = require("@hapi/joi");
+const bcrypt = require('bcryptjs');
 const User = mongoose.model("users");
 const pagination = require("./../../../lib/pagination");
-const { error } = require("winston");
+
 
 exports.home = catchAsync(async (req, res) => {
   res.render("index");
@@ -26,7 +28,7 @@ exports.editUser = async (req, res, next) => {
   const bodySchema = joi.object({
     email: joi.string().required(),
     name: joi.string().required(),
-    password: joi.string().required(),
+  //  password: joi.string().required(),
     phoneNumber: joi.string(),
     date: joi.date(),
     gender: joi.string(),
@@ -37,7 +39,7 @@ exports.editUser = async (req, res, next) => {
   const userUpdate = {
     email: value.email,
     name: value.name,
-    password: value.password,
+  //  password: value.password,
     phoneNumber: value.phoneNumber,
     date: value.date,
     gender: value.gender,
@@ -49,6 +51,30 @@ exports.editUser = async (req, res, next) => {
     return res.status(200).json({ success: true, data: userUpdate})  
   } catch (error) {
     next(error)
-  }   
-  
+  }     
+}
+exports.changePassword = async (req, res, next) => {
+  try {
+  const { id } = req.params;
+  const oldPassword = await User.findOne({ _id: id }, ["password"]);
+  const { password, newPassword, newPassword_confirmation } = req.body;
+  const bodySchema = joi.object({
+    password: joi.string().required(),
+    newPassword_confirmation: joi.string().required(),
+    newPassword: joi.ref('newPassword_confirmation')
+    })
+    .unknown();
+    const value = await bodySchema.validateAsync(req.body);
+    const comparePass = bcrypt.compareSync(password, oldPassword.password)
+    if (comparePass == true) {
+      const passwordUpdate = {
+        password: bcrypt.hashSync(value.newPassword, 10)
+      }
+      await User.updateOne({ _id: id }, passwordUpdate);
+      res.status(200).json({ success: true })
+    }
+    else { throw new BadRequestException("Password not match")}
+  } catch (error) {
+    next(error)
+  }      
 } 
