@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -12,7 +13,9 @@ class Home extends Component {
                     <div>
                         <div className="container" style={{ paddingTop: '100px' }}>
                             <div className="row">
-                                <div className="col-md-12"><img className="img-fluid shadow" src="assets/img/slider_1_1593657977.jpg" style={{ width: '70rem', borderRadius: '1rem' }} /></div>
+                                <div className="col-md-12">
+                                    <img className="img-fluid shadow" src="assets/img/slider_1_1593657977.jpg" style={{ width: '70rem', borderRadius: '1rem' }} />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -31,9 +34,12 @@ class Home extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-sm-6 col-md-6 col-lg-3">
-                                    <div className="shadow" style={{ borderRadius: '1rem', paddingBottom: 3, marginBottom: 10 }}><img className="img-fluid" src="assets/img/location_6_1572858402.png" style={{ width: 250 }} />
-                                        <h1 className="text-center d-xl-flex justify-content-center justify-content-xl-center" style={{ fontSize: 24, marginTop: 5 }}>Homestay</h1>
-                                        <p className="text-center d-xl-flex justify-content-xl-center" style={{ color: 'rgb(157,157,157)', marginBottom: 5 }}>Căn hộ dịch vụ &amp; Biệt thự</p>
+                                    <div className="shadow" style={{ borderRadius: '1rem', paddingBottom: 3, marginBottom: 10 }}>
+                                        <Link to="/category">
+                                            <img className="img-fluid" src="assets/img/location_6_1572858402.png" style={{ width: 250 }} />
+                                            <h1 className="text-center d-xl-flex justify-content-center justify-content-xl-center" style={{ fontSize: 24, marginTop: 5 }}>Homestay</h1>
+                                            <p className="text-center d-xl-flex justify-content-xl-center" style={{ color: 'rgb(157,157,157)', marginBottom: 5 }}>Căn hộ dịch vụ &amp; Biệt thự</p>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="col-sm-6 col-md-6 col-lg-3">
@@ -70,11 +76,14 @@ class Home extends Component {
                     <div>
                         <div className="container">
                             <div className="row">
-                                <div className="col-sm-6 col-md-3 text-center" style={{ padding: 0, paddingRight: 10, paddingLeft: 10 }}><img className="rounded img-fluid border shadow" src="assets/img/location_5_1559735011.png" style={{ width: 264, height: 293 }} />
-                                    <div style={{ paddingTop: '-33px' }}>
-                                        <h5 className="mb-0"><strong>TP. Hồ Chí Minh</strong></h5>
-                                        <p style={{ marginBottom: 10 }}>3415 Chỗ ở</p>
-                                    </div>
+                                <div className="col-sm-6 col-md-3 text-center" style={{ padding: 0, paddingRight: 10, paddingLeft: 10 }}>
+                                    <Link to="/category">
+                                        <img className="rounded img-fluid border shadow" src="assets/img/location_5_1559735011.png" style={{ width: 264, height: 293 }} />
+                                        <div style={{ paddingTop: '-33px' }}>
+                                            <h5 className="mb-0"><strong>TP. Hồ Chí Minh</strong></h5>
+                                            <p style={{ marginBottom: 10 }}>3415 Chỗ ở</p>
+                                        </div>
+                                    </Link>
                                 </div>
                                 <div className="col-sm-6 col-md-3 text-center" style={{ padding: 0, paddingRight: 10, paddingLeft: 10 }}><img className="rounded img-fluid border shadow" src="assets/img/location_10_1559303118.png" style={{ width: 264, height: 293 }} />
                                     <div style={{ paddingTop: '-33px' }}>
@@ -135,7 +144,11 @@ class Home extends Component {
                     <div>
                         <div className="container">
                             <div className="row no-gutters d-xl-flex justify-content-xl-center">
-                                <div className="col-sm-6 col-md-6 col-lg-4" style={{ padding: 5 }}><img className="img-fluid border rounded shadow d-xl-flex" src="assets/img/event_1_1593688439.jpg" /></div>
+                                <div className="col-sm-6 col-md-6 col-lg-4" style={{ padding: 5 }}>
+                                    <Link to="sale">
+                                        <img className="img-fluid border rounded shadow d-xl-flex" src="assets/img/event_1_1593688439.jpg" />
+                                    </Link>
+                                </div>
                                 <div className="col-sm-6 col-md-6 col-lg-4 text-center d-xl-flex justify-content-xl-center" style={{ padding: 5 }}><img className="img-fluid border rounded shadow d-xl-flex" src="assets/img/event_1_1592386845.jpg" /></div>
                                 <div className="col-sm-6 col-md-6 col-lg-4 text-center d-xl-flex justify-content-xl-center" style={{ padding: 5 }}><img className="img-fluid border rounded shadow" src="assets/img/event_4_1593054647.jpg" /></div>
                                 <div className="col-sm-6 col-md-6 col-lg-3 col-xl-4 text-center d-xl-flex justify-content-xl-center" style={{ padding: 5 }}><img className="img-fluid border rounded shadow" src="assets/img/event_1_1592534684.jpg" /></div>
