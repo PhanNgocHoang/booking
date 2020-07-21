@@ -1,33 +1,12 @@
 import React, { Component } from 'react';
+import Headers from '../../components/Header'
 
 class Login extends Component {
     render() {
         return (
             <>
+                <Headers />
                 <div style={{ marginTop: "80px" }}>
-                    <div style={{ backgroundColor: '#ffffff', overflow: 'hidden', position: 'fixed', top: 0, zIndex: 10, width: '100%' }}>
-                        <div className="container-fluid">
-                            <div className="row align-items-center">
-                                <div className="col-md-6 text-center d-xl-flex align-items-xl-center"><img src="assets/img/logo.png" style={{ width: '10.5rem' }} /></div>
-                                <div className="col-md-6 d-flex justify-content-center">
-                                    <nav className="navbar navbar-light navbar-expand-md navigation-clean">
-                                        <div className="container"><button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1"><span className="sr-only">Toggle navigation</span><span className="navbar-toggler-icon" /></button>
-                                            <div className="collapse navbar-collapse" id="navcol-1">
-                                                <ul className="nav navbar-nav ml-auto">
-                                                    <li className="nav-item" role="presentation"><a className="nav-link active" href="#" style={{ color: 'rgb(0,0,0)' }}>Host</a></li>
-                                                    <li className="nav-item" role="presentation"><a className="nav-link" href="#">Đăng ký</a></li>
-                                                    <li className="nav-item" role="presentation"><a className="nav-link" href="#">Đăng nhập</a></li>
-                                                    <li className="nav-item dropdown"><a className="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">VN</a>
-                                                        <div className="dropdown-menu" role="menu"><a className="dropdown-item" role="presentation" href="#">First Item</a><a className="dropdown-item" role="presentation" href="#">Second Item</a><a className="dropdown-item" role="presentation" href="#">Third Item</a></div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <div className="container-fluid">
                             <div className="row">

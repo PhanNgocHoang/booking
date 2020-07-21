@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class Host extends Component {
     render() {
@@ -8,7 +9,9 @@ export default class Host extends Component {
                     <div>
                         <div className="container-fluid">
                             <div className="row">
-                                <div className="col-md-12 d-xl-flex align-items-xl-center" style={{ height: 60, backgroundColor: '#ffffff', overflow: 'hidden', position: 'fixed', top: 0, zIndex: 10, width: '100%' }}><img src="assets/img/logo.png" style={{ width: '10.5rem' }} /></div>
+                                <Link to="/">
+                                    <div className="col-md-12 d-xl-flex align-items-xl-center" style={{ height: 60, backgroundColor: '#ffffff', overflow: 'hidden', position: 'fixed', top: 0, zIndex: 10, width: '100%' }}><img src="assets/img/logo.png" style={{ width: '10.5rem' }} /></div>
+                                </Link>
                             </div>
                         </div>
                     </div>

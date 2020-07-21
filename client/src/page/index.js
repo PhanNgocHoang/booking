@@ -7,4 +7,5 @@ export { default as Register } from "./Register";
 export { default as CategorySale } from "./CategorySale";
 export { default as Host } from "./Host";
 export { default as AffterLogin } from "./AffterLogin";
+export { default as CategoryRegion } from "./CategoryRegion";
 
