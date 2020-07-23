@@ -2,10 +2,12 @@ const { catchAsync } = require("../../lib/utils");
 const JWT = require('jsonwebtoken')
 const joi = require("@hapi/joi");
 const { jwt_secret} = require("../../config/default.js")
+const Users = require('../models/users.model')
 exports.authentication = catchAsync(async (req, res) => {
     const token = encodedToken(req.user.role, req.user.email)
+    const userInfo = await Users.findOne({email: req.user.email})
     res.setHeader("Authorization", token)
-    return res.status(200).json({success: true})
+    return res.status(200).json({token: token, userInfo: userInfo})
   
   })
   const encodedToken = (role, email) =>{
