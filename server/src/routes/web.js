@@ -13,4 +13,6 @@ webRouter.route("/user/edit/:id")
   .put(HomeController.editUser)
 webRouter.route("/user/change-password/:id")
   .put(HomeController.changePassword)
+webRouter.route("/user/bookings/:id")
+  .get(HomeController.booking)
 module.exports = webRouter;

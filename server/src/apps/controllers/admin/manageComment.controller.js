@@ -2,10 +2,8 @@ const mongoose = require("mongoose");
 const joi = require("@hapi/joi");
 const User = mongoose.model("users");
 const Comment = mongoose.model("comments");
-const Room = mongoose.model("rooms");
 const pagination = require("./../../../lib/pagination");
 const { BadRequestException } = require("../../exceptions/index");
-const { error } = require("winston");
 module.exports.get_comment = async (req, res) => {
    try {
     const { limit, currentPage, skip , next, prev } = pagination.index(req);
@@ -17,7 +15,7 @@ module.exports.get_comment = async (req, res) => {
       .skip(skip)
     return res.status(200).json({ status: "success", data: comments, items: { totalDocument, limit }, pages: { currentPage , next , prev} });
   } catch (error) {
-    res.status(400).json({message: error.message})
+     next(error);
   }
 }
 module.exports.getRoom_comment = async (req, res, next) => {

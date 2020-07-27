@@ -15,7 +15,7 @@ module.exports.user = async (req, res, next) => {
       .skip(skip)
     return res.status(200).json({ status: "success", data: users, items: { totalDocument, limit }, pages: { currentPage , next , prev} });
   } catch (error) {
-    res.status(400).json({message: error.message})
+    next(error);
   }
 };
 module.exports.add_user = async (req, res, next) => {
@@ -25,10 +25,7 @@ module.exports.add_user = async (req, res, next) => {
       name: joi.string().required(),
     })
     .unknown();
-   const value = await bodySchema.validateAsync(req.body).catch((err) => err);
-   if ( value instanceof Error) {
-      return res.status(400).json({message: " Not add user !!!"})
-   }
+   const value = await bodySchema.validateAsync(req.body)
     const userNew = new User({
       email: value.email,
       name: value.name,
@@ -61,10 +58,7 @@ module.exports.edit_user = async (req, res,next) => {
       name: joi.string().required(),
     })
     .unknown();
-   const value = await bodySchema.validateAsync(req.body).catch((err) => err);
-   if ( value instanceof Error) {
-      return res.status(400).json({message: " Not edit user !!!"})
-   }
+   const value = await bodySchema.validateAsync(req.body)
     const userUpdate = {
       email: value.email,
       name: value.name,
