@@ -8,5 +8,11 @@ const passport = require('passport')
 const webRouter = Router();
 
 webRouter.get("/", HomeController.home);
-
+webRouter.route("/user/edit/:id")
+  .get(HomeController.getUser)
+  .put(HomeController.editUser)
+webRouter.route("/user/change-password/:id")
+  .put(HomeController.changePassword)
+webRouter.route("/user/bookings/:id")
+  .get(HomeController.booking)
 module.exports = webRouter;
