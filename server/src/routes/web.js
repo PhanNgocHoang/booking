@@ -14,6 +14,7 @@ webRouter.route("/user/change-password/:id")
   .put(HomeController.changePassword)
 webRouter.route("/user/bookings/:id")
   .get(HomeController.booking)
-webRouter.get("/*", HomeController.home);
+webRouter.get("/admin/*", HomeController.admin);
+webRouter.get("/*", HomeController.client);
 
 module.exports = webRouter;

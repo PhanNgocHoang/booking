@@ -11,9 +11,10 @@ dotEnv.config({
 const ManifestPlugin = require("webpack-manifest-plugin");
 
 module.exports = {
-  context: path.join(__dirname, "client", "src"),
+  context: path.resolve(),
   entry: {
-    app: "./index.js",
+    cms: "./admin/src/index.js",
+    app: "./client/src/index.js"
   },
 
   module: {

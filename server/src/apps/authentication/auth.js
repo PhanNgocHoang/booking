@@ -6,7 +6,9 @@ const LocalUser = require('passport-local')
 const bcrypt = require('bcryptjs')
 const { jwt_secret } = require("../../config/default")
 const jwtStrategy = require('passport-jwt').Strategy
-const { ExtractJwt } = require('passport-jwt')
+const { ExtractJwt } = require('passport-jwt');
+
+const { BadRequestException } = require("../exceptions")
 
 // passport-local
 passport.use(new jwtStrategy({
@@ -71,13 +73,17 @@ passport.use(new GooglePlusToken({
 ))
 //passport local
 passport.use(new LocalUser(async (username, password, done) => {
+    console.log("password", password)
+    console.log("username", username)
     try {
         const user = await Users.findOne({ email: username, authType: "local" })
-        const err = "Wrong email or password"
+
         if (user && bcrypt.compare(password, user.password)) {
             return done(null, user)
         }
-        else { return done(err, false) }
+
+        if (!user) throw new BadRequestException("email or pass wrong")
+
     } catch (error) {
         return done(error, false)
     }

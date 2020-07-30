@@ -30,7 +30,7 @@ module.exports = {
       options: {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify:false
+        useFindAndModify: false
       },
     },
   },
