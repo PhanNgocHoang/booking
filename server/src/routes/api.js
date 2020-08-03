@@ -31,9 +31,11 @@ apiRouter.route('/roomUpdate/:roomId')
     .put(upload.array('roomImages', 10),MangeRoomController.PostUpdate);
 apiRouter.route('/admin/roomDelete/:roomId')
     .delete(MangeRoomController.RoomDelete)
-apiRouter.route('admin//RoomBlock/:roomId')
+apiRouter.route('admin/RoomBlock/:roomId')
     .put(MangeRoomController.RoomBlock)
 apiRouter.route('/admin/GetRoom')
     .get(MangeRoomController.GetRoom)
+apiRouter.route('/searchRoom')
+    .get(MangeRoomController.SearchRoom)
 
 module.exports = apiRouter

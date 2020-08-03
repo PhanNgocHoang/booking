@@ -77,12 +77,13 @@ module.exports.RoomBlock = async (req, res, next) => {
 }
 module.exports.GetRoom = async (req, res, next) => {
    try {
+      const totalPage = await Rooms.countDocuments()
       const perPage = 5
       const page = parseInt(req.query.page || 1)
       const address = req.query.address || {}
       const skip = (page - 1) * perPage
       const query = await Rooms.find({}, ['roomName', 'roomAddress', 'status', 'Owner', 'priceHoliday', 'priceDay']).skip(skip).limit(perPage).populate({ path: 'Owner', select: 'name' })
-      return res.status(200).json({ status: 200, data: query })
+      return res.status(200).json({ status: 200, data: query, totalPage: totalPage })
    } catch (error) {
       next(error.message)
    }
@@ -144,6 +145,15 @@ module.exports.PostUpdate = async (req, res, next) => {
          }
        if (owner === null) throw new BadRequestException('Email not exist')
 
+   } catch (error) {
+      next(error)
+   }
+}
+module.exports.SearchRoom = async (req, res, next) => {
+   try {
+      const {keySearch} = req.body
+      const Result = await Rooms.aggregate([{$match: { $text: { $search: keySearch} }}])
+      res.status(200).json({status:200, data: Result})
    } catch (error) {
       next(error)
    }

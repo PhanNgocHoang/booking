@@ -18,5 +18,6 @@ const RoomsSchema = new Schema({
     description: {type: String, require: true},
     Owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref:'users'},
 })
+RoomsSchema.index({ '$**': 'text' })
 const Rooms = mongoose.model('rooms', RoomsSchema)
 module.exports = Rooms
