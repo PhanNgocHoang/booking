@@ -61,6 +61,7 @@ passport.use(new GooglePlusToken({
            authGoogleID: profile.id,
            role: 1,
            name: profile.displayName,
+           phoneNumber: ""
        })
        await newUser.save()
        return done(null, newUser)

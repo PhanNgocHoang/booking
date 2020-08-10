@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const bcrypt = require("bcryptjs")
 
 const UsersSchema = new Schema({
-    _id: {type: mongoose.Schema.Types.ObjectId, auto: true},
+     _id: {type: mongoose.Schema.Types.ObjectId, auto: true},
     email: {type: String, require: true, unique: true},
     name: {type:String, unique: true},
     password: {type: String},
@@ -15,22 +15,27 @@ const UsersSchema = new Schema({
     address: { type: String },
     date: { type: Date },
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
-    description: { type: String }
+    description: { type: String },
 });
 // ma hoa
 UsersSchema.pre("save", async function(next) {
-    try {     
+    try {
+        if(this.authType !== "local") return next();
         // generate a salt
         const salt = await bcrypt.genSalt(10);
         // generate a pass hash 
-        const passwordHashed = await bcrypt.hash(this.password, salt);       
-        // re-assign pass hashed
-        this.password = passwordHashed;
+        const passwordHashed = await bcrypt.hash(this.password, salt);
+      this.password = passwordHashed;
    //     return false;
     } catch (error) {
         next(error)
     }
 })
-
+        
+});
 const Users = mongoose.model('users', UsersSchema)
-module.exports = Users;
+module.exports = Users
+module.exports.findUser = async (email, role) =>{
+    const user = await Users.countDocuments({email: email, role: role})
+    return user
+}
