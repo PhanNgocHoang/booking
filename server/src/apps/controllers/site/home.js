@@ -12,9 +12,9 @@ exports.home = catchAsync(async (req, res) => {
   res.render("index");
 });
 exports.getUser = async (req, res, next) => {
-  const { id } = req.params;
+  const userId = req.user._id;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
     if (user) {
       return res.status(201).json({ status: "success", user });
     }
@@ -23,7 +23,7 @@ exports.getUser = async (req, res, next) => {
   }
 };
 exports.editUser = async (req, res, next) => {
-  const { id } = req.params;
+  const userId = req.user._id;
   const bodySchema = joi.object({
     email: joi.string().required(),
     name: joi.string().required(),
@@ -46,7 +46,7 @@ exports.editUser = async (req, res, next) => {
     address: value.address
   }
   try {
-    await User.updateOne({ _id: id }, userUpdate);
+    await User.updateOne({ _id: userId }, userUpdate);
     return res.status(200).json({ success: true, data: userUpdate })
   } catch (error) {
     next(error)
@@ -54,8 +54,8 @@ exports.editUser = async (req, res, next) => {
 };
 exports.changePassword = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const oldPassword = await User.findOne({ _id: id }, ["password"]);
+    const userId = req.user._id;
+    const oldPassword = await User.findOne({ _id: userId }, ["password"]);
     const { password, newPassword, newPassword_confirmation } = req.body;
     const bodySchema = joi.object({
       password: joi.string().required(),
@@ -69,7 +69,7 @@ exports.changePassword = async (req, res, next) => {
       const passwordUpdate = {
         password: bcrypt.hashSync(value.newPassword, 10)
       }
-      await User.updateOne({ _id: id }, passwordUpdate);
+      await User.updateOne({ _id: userId }, passwordUpdate);
       res.status(200).json({ success: true })
     }
     else { throw new BadRequestException("Password not match") }
@@ -78,13 +78,15 @@ exports.changePassword = async (req, res, next) => {
   }
 };
 exports.booking = async (req, res, next) => {
-  const { id } = req.params;
+  const userId = req.user._id;
   const { status } = req.query;
+
   try {
-    const booking = await Booking.find({ customerId: id , status:status });
-    if (booking && status) {
-      return res.status(200).json({ status: "success", booking });
-    }
+    const booking = await Booking.find({ customerId: userId , status });
+    return res.status(200).json({
+      status: "success", data: {
+      docs: booking
+    } });
   } catch (error) {
     next(error)
   }
