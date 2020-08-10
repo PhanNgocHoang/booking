@@ -1,8 +1,7 @@
 const { catchAsync } = require("../../lib/utils");
 const JWT = require('jsonwebtoken')
 const joi = require("@hapi/joi");
-const { jwt_secret } = require("../../config/default.js")
-
+const { jwt_secret } = require("../../config/default.js"
 const encodedToken = (role, email, id) => {
   return JWT.sign({
     iss: email,
@@ -49,7 +48,7 @@ module.exports.register = async function (req, res, next) {
     const newUser = new Users({ name, password, email, role })
     newUser.save();
     // Encode
-    const token = encodeToken(newUser._id);
+    const token = encodeToken(newUser._id, newUser.email);
     res.setHeader("Authorization", token);
     return res.status(201).json({ success: true }); 
       
