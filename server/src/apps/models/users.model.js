@@ -30,7 +30,6 @@ UsersSchema.pre("save", async function(next) {
     } catch (error) {
         next(error)
     }
-})
         
 });
 const Users = mongoose.model('users', UsersSchema)
