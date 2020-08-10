@@ -8,5 +8,5 @@ const CommentsSchema = mongoose.Schema({
     createAt: {type: String, required: true},
     updateAt: {type: String, required: true}
 })
-const Comments = mongoose.model('comments', CommentsSchema)
-module.exports = Comments
+const Comments = mongoose.model('comments', CommentsSchema);
+module.exports = Comments;

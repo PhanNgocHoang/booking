@@ -7,7 +7,7 @@ const BookingSchema = new Schema({
     price: {type: Number, required: true},
     roomId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'rooms'},
     customerId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
-    status: {type: String, required: true},
+    status: { type: String, enum: ['no_confirm', 'confirm', 'refuse', 'success', 'fail', 'cancelled'], required: true, default:'no_confirm'},
     numberCustomer: [
         {
             adults: {type: Number, required: true},
@@ -15,4 +15,5 @@ const BookingSchema = new Schema({
         }
     ]
 })
-const Booking = mongoose.model('bookings', BookingSchema)
+const Bookings = mongoose.model('bookings', BookingSchema);
+module.exports = Bookings;
