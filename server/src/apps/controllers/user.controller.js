@@ -1,7 +1,7 @@
 const { catchAsync } = require("../../lib/utils");
 const JWT = require('jsonwebtoken')
 const joi = require("@hapi/joi");
-const { jwt_secret } = require("../../config/default.js"
+const { jwt_secret } = require("../../config/default.js")
 const encodedToken = (role, email, id) => {
   return JWT.sign({
     iss: email,
