@@ -79,10 +79,14 @@ exports.changePassword = async (req, res, next) => {
 };
 exports.booking = async (req, res, next) => {
   const userId = req.user._id;
-  const { status } = req.query;
-
+  const { status, startAt, endAt } = req.query;
   try {
-    const booking = await Booking.find({ customerId: userId , status });
+    const booking = await Booking.find({
+      customerId: userId,
+      status,
+      startAt,
+      endAt,
+    });
     return res.status(200).json({
       status: "success", data: {
       docs: booking

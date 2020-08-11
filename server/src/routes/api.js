@@ -5,7 +5,7 @@ const MangeRoomController = require("../apps/controllers/admin/manageRoom.contro
 const AdminController = require("../apps/controllers/admin/manageUser.controller");
 const CommentController = require("../apps/controllers/admin/manageComment.controller");
 const check = require("../apps/middlewares/check")
-const checkLogin = require("../apps/middlewares/checkLogin")
+//const checkLogin = require("../apps/middlewares/checkLogin")
 const apiRouter = Router()
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -40,8 +40,8 @@ apiRouter.route('/admin/GetRoom')
     .get(MangeRoomController.GetRoom)
 apiRouter.route('/searchRoom')
     .get(MangeRoomController.SearchRoom)
-const apiRouter = Router()
-//apiRouter.use('/admin', checkLogin.Login)
+
+apiRouter.use('/admin', checkLogin.Login)
 apiRouter.route("/admin/user")
     .get(AdminController.user)
 apiRouter.route("/admin/user/add")
