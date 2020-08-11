@@ -1,6 +1,6 @@
 "use strict";
 const { catchAsync } = require("../../../lib/utils");
-const {BadRequestException} = require("../../exceptions")
+const { BadRequestException } = require("../../exceptions")
 const JWT = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const joi = require("@hapi/joi");
@@ -8,9 +8,7 @@ const bcrypt = require('bcryptjs');
 const User = mongoose.model("users");
 const pagination = require("./../../../lib/pagination");
 const Booking = require("../../models/bookings.model");
-exports.home = catchAsync(async (req, res) => {
-  res.render("index");
-});
+
 exports.getUser = async (req, res, next) => {
   const userId = req.user._id;
   try {
@@ -81,6 +79,7 @@ exports.booking = async (req, res, next) => {
   const userId = req.user._id;
   const { status, startAt, endAt } = req.query;
   try {
+
     const booking = await Booking.find({
       customerId: userId,
       status,
@@ -91,7 +90,19 @@ exports.booking = async (req, res, next) => {
       status: "success", data: {
       docs: booking
     } });
+
   } catch (error) {
     next(error)
   }
 };
+
+
+exports.admin = catchAsync(async (req, res) => {
+  res.render("cms");
+});
+
+exports.client = catchAsync(async (req, res) => {
+  res.render("index");
+});
+
+

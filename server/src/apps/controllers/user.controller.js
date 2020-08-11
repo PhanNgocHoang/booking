@@ -46,3 +46,4 @@ module.exports.register = async function (req, res, next) {
     next(error);
   }
 };
+

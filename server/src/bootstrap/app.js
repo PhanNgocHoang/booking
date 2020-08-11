@@ -24,7 +24,7 @@ app.use(passport.session())
 app.use(cors());
 
 // Static file
-app.use("/assets", express.static(path.resolve("server", "src", "public")));
+app.use("/assets", express.static(path.resolve("server", "src", "public",)));
 
 // Template engine HBS
 app.set("views", path.resolve("server", "src", "resources", "views"));
