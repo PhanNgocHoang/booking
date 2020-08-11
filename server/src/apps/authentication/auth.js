@@ -10,21 +10,32 @@ const { ExtractJwt } = require('passport-jwt');
 
 const { BadRequestException } = require("../exceptions")
 
+
+passport.serializeUser((user, done) => {
+    // console.log(user)
+    done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+})
 // passport-local
 passport.use(new jwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken("Authorization"),
     secretOrKey: jwt_secret
 }, async (payload, done) => {
     try {
-        console.log("payload", payload);
-        const user = await userModel.findById(payload.sub);
+        const user = await Users.findById(payload.id);
         if (!user) return done(null, false)
+
         done(null, user)
 
     } catch (error) {
         done(error, false)
     }
-}));
+  
+}))
+
 // passport-facebook
 passport.use(new passportFB({
     clientID: '607424970153093',
@@ -55,6 +66,7 @@ passport.use(new GooglePlusToken({
     clientSecret: 'btddoB7SgNgRzsAOkBdz1BkF',
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+
         const user = await Users.findOne({ authGoogleID: profile.id, authType: "google" })
         if (user) return done(null, user)
         const newUser = new Users({
@@ -73,9 +85,7 @@ passport.use(new GooglePlusToken({
 ))
 //passport local
 passport.use(new LocalUser(async (username, password, done) => {
-<<<<<<< HEAD
-    console.log("password", password)
-    console.log("username", username)
+
     try {
         const user = await Users.findOne({ email: username, authType: "local" })
 
@@ -85,15 +95,6 @@ passport.use(new LocalUser(async (username, password, done) => {
 
         if (!user) throw new BadRequestException("email or pass wrong")
 
-=======
-    try {
-        const user = await Users.findOne({ email: username, authType: "local" })
-        const err = "Wrong email or password"
-        if (user && bcrypt.compare(password, user.password)) {
-            return done(null, user)
-        }
-        else { return done(err, false) }
->>>>>>> dc81eed0fd92f16bafa6cf75090b55d273f074a7
     } catch (error) {
         return done(error, false)
     }
