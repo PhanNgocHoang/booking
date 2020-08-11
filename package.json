@@ -34,11 +34,17 @@
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+<<<<<<< HEAD
     "react-data-table-component": "^6.11.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+=======
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+>>>>>>> dc81eed0fd92f16bafa6cf75090b55d273f074a7
     "winston": "^3.3.3"
   },
   "devDependencies": {

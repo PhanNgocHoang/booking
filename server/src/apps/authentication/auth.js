@@ -73,6 +73,7 @@ passport.use(new GooglePlusToken({
 ))
 //passport local
 passport.use(new LocalUser(async (username, password, done) => {
+<<<<<<< HEAD
     console.log("password", password)
     console.log("username", username)
     try {
@@ -84,6 +85,15 @@ passport.use(new LocalUser(async (username, password, done) => {
 
         if (!user) throw new BadRequestException("email or pass wrong")
 
+=======
+    try {
+        const user = await Users.findOne({ email: username, authType: "local" })
+        const err = "Wrong email or password"
+        if (user && bcrypt.compare(password, user.password)) {
+            return done(null, user)
+        }
+        else { return done(err, false) }
+>>>>>>> dc81eed0fd92f16bafa6cf75090b55d273f074a7
     } catch (error) {
         return done(error, false)
     }
