@@ -34,9 +34,10 @@ app.set("view engine", "hbs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", require("../routes/web"));
+
 app.use("/auth", require("../routes/auth"))
 app.use("/api", require("../routes/api"))
+app.use("/", require("../routes/web"));
 
 
 // Not match router

@@ -14,7 +14,7 @@ module.exports = {
   context: path.resolve(),
   entry: {
     cms: "./admin/src/index.js",
-    app: "./client/src/index.js"
+    // app: "./client/src/index.js"
   },
 
   module: {

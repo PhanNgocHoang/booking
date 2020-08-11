@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function Register(props) {
     return (
-        <div className="sufee-login d-flex align-content-center flex-wrap">
+        <div className="sufee-login d-flex align-content-center flex-wrap" style={{ backgroundColor: "gray" }}>
             <div className="container">
                 <div className="login-content">
                     <div className="login-logo">
                         <a href="index.html">
-                            <img className="align-content" src="images/logo.png" alt />
+                            <img className="align-content" src="admin/images/logo.png" alt="logo.png" />
                         </a>
                     </div>
                     <div className="login-form">
@@ -37,7 +38,7 @@ function Register(props) {
                                 </div>
                             </div>
                             <div className="register-link m-t-15 text-center">
-                                <p>Already have account ? <a href="#"> Sign in</a></p>
+                                <p>Already have account ? <Link to="/admin/login"> Sign in</Link></p>
                             </div>
                         </form>
                     </div>

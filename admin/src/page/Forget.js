@@ -2,12 +2,12 @@ import React from 'react'
 
 function Forget(props) {
     return (
-        <div className="sufee-login d-flex align-content-center flex-wrap">
+        <div className="sufee-login d-flex align-content-center flex-wrap" style={{ backgroundColor: "gray" }}>
             <div className="container">
                 <div className="login-content">
                     <div className="login-logo">
                         <a href="index.html">
-                            <img className="align-content" src="images/logo.png" alt />
+                            <img className="align-content" src="admin/images/logo.png" alt />
                         </a>
                     </div>
                     <div className="login-form">
