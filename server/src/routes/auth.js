@@ -6,11 +6,11 @@ const passport = require('passport')
 
 const authRouter = Router();
 authRouter.route('/facebook')
-    .post(passport.authenticate('facebook-token', {session: false}), UserController.authentication)
+    .post(passport.authenticate('facebook-token', { session: false }), UserController.authentication)
 authRouter.route('/google')
-    .post(passport.authenticate('google-plus-token', {session: false}), UserController.authentication)
+    .post(passport.authenticate('google-plus-token', { session: false }), UserController.authentication)
 authRouter.route('/local')
-    .post(passport.authenticate('local', {session: false}), UserController.authentication)
+    .post(passport.authenticate('local', { session: false }), UserController.authentication)
 authRouter.route("/register")
     .post(UserController.register)
 
