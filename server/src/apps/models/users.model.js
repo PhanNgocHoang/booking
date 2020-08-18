@@ -16,6 +16,7 @@ const UsersSchema = new Schema({
     date: { type: Date },
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
     description: { type: String },
+    photoURL: { type: String, required: true}
 });
 // ma hoa
 UsersSchema.pre("save", async function(next) {

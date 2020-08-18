@@ -5,8 +5,6 @@ const MangeRoomController = require("../apps/controllers/admin/manageRoom.contro
 const AdminController = require("../apps/controllers/admin/manageUser.controller");
 const CommentController = require("../apps/controllers/admin/manageComment.controller");
 const check = require("../apps/middlewares/check")
-//const checkLogin = require("../apps/middlewares/checkLogin")
-const apiRouter = Router()
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         return cb(null, '/tmp/')
@@ -21,10 +19,9 @@ const fileFilter = (req, file, cb) =>{
     {return cb(null, true)}
     else{return cb(null, false)}
 }
+const apiRouter = Router()
 const upload = multer({storage: storage, limits: {fileSize:1024*1024*10}, fileFilter:fileFilter})
 apiRouter.use('/admin', check.checkLogin, check.checkAdmin)
-apiRouter.route("/admin")
-    .get(ManageUserController.test)
 apiRouter.route('/admin/addRoom')
     .post(upload.array('roomImages', 10) ,MangeRoomController.addRoom)
 apiRouter.route('/admin/roomDetail/:roomId')
@@ -38,10 +35,8 @@ apiRouter.route('admin/RoomBlock/:roomId')
     .put(MangeRoomController.RoomBlock)
 apiRouter.route('/admin/GetRoom')
     .get(MangeRoomController.GetRoom)
-apiRouter.route('/searchRoom')
+apiRouter.route('admin/searchRoom')
     .get(MangeRoomController.SearchRoom)
-
-apiRouter.use('/admin', checkLogin.Login)
 apiRouter.route("/admin/user")
     .get(AdminController.user)
 apiRouter.route("/admin/user/add")
@@ -60,3 +55,4 @@ apiRouter.route("/admin/comments/room/:roomId")
 apiRouter.route("/admin/comments/:commentId")
     .get(CommentController.getOne_comment)
     .delete(CommentController.deleteOne_comment);
+module.exports = apiRouter

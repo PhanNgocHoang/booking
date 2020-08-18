@@ -75,6 +75,14 @@ exports.changePassword = async (req, res, next) => {
     next(error)
   }
 };
+exports.changeAvatar = async (req, res, next)=>{
+  try{
+    console.log(req.files)
+
+  }catch (error) {
+
+  }
+}
 exports.booking = async (req, res, next) => {
   const userId = req.user._id;
   const { status, startAt, endAt } = req.query;
