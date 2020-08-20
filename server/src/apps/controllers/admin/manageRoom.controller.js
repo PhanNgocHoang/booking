@@ -44,7 +44,7 @@ module.exports.addRoom = async (req, res, next) => {
       }
       if (ownerId === null) throw new BadRequestException('Email not exist')
    } catch (error) {
-      next(error)
+      next(error.message)
    }
 }
 module.exports.RoomsDetail = async (req, res, next) => {
@@ -82,8 +82,8 @@ module.exports.GetRoom = async (req, res, next) => {
       const page = parseInt(req.query.page || 1)
       const address = req.query.address || {}
       const skip = (page - 1) * perPage
-      const query = await Rooms.find({}, ['roomName', 'roomAddress', 'status', 'Owner', 'priceHoliday', 'priceDay']).skip(skip).limit(perPage).populate({ path: 'Owner', select: 'name' })
-      return res.status(200).json({ status: 200, data: query, totalPage: totalPage })
+      const query = await Rooms.find({}, ['roomName', 'roomAddress', 'status', 'Owner', 'priceHoliday', 'priceDay',]).skip(skip).limit(perPage).populate({ path: 'Owner', select: 'name' })
+      return res.status(200).json({ status: 200, data: query, totalPage: totalPage/perPage })
    } catch (error) {
       next(error.message)
    }

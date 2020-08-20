@@ -15,11 +15,11 @@ const storage = multer.diskStorage({
 })
 const fileFilter = (req, file, cb) =>{
   //only upload files jpg or png
-  if(file.mimetype === 'image/jpeg' ||file.mimetype === 'image/png')
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png')
   {return cb(null, true)}
   else{return cb(null, false)}
 }
-const upload = multer({storage: storage, limits: {fileSize:1024*1024*10}, fileFilter:fileFilter})
+const upload = multer({storage: storage, limits: {fileSize:1024*1024*10}})
 
 const webRouter = Router();
 
@@ -40,6 +40,6 @@ webRouter.route("/user/change-password")
 webRouter.route("/user/bookings")
   .get(passport.authenticate("jwt", {session: false}), HomeController.booking)
 webRouter.route("/user/changeAvatar/:id")
-  .put(upload.array("photoURL", 1) ,HomeController.changeAvatar)
+  .post(upload.single('photoURL') ,HomeController.changeAvatar)
 
 module.exports = webRouter;

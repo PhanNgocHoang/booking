@@ -8,6 +8,8 @@ const bcrypt = require('bcryptjs');
 const User = mongoose.model("users");
 const pagination = require("./../../../lib/pagination");
 const Booking = require("../../models/bookings.model");
+const fs = require('fs')
+const path = require('path');
 
 exports.getUser = async (req, res, next) => {
   const userId = req.user._id;
@@ -76,12 +78,23 @@ exports.changePassword = async (req, res, next) => {
   }
 };
 exports.changeAvatar = async (req, res, next)=>{
-  try{
-    console.log(req.files)
+    try{
+      const image = req.file
+      const pathUpload = path.resolve("server", "src", "public", "user_avatar")
+      const filePath = "assets/user_avatar/"
+      const fileName =image.filename
+      const fileRead = fs.readFileSync(image.path)
+      await fs.writeFileSync(path.join(pathUpload, fileName), fileRead)
+      fs.unlinkSync(image.path)
+      const photoURL = filePath + image.filename
+      await User.updateOne({_id: req.params.id}, {
+        photoURL: photoURL
+      })
+      return res.status(200).json({photoURL})
+    }catch(error){
+      next(error)
+    }
 
-  }catch (error) {
-
-  }
 }
 exports.booking = async (req, res, next) => {
   const userId = req.user._id;

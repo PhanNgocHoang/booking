@@ -7,7 +7,7 @@ const BookingSchema = new Schema({
     price: {type: Number, required: true},
     roomId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'rooms'},
     customerId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
-    status: { type: String, enum: ['no_confirm', 'confirm', 'refuse', 'success', 'fail', 'cancelled'], required: true, default:'no_confirm'},
+    status: { type: String, enum: ['no_confirm', 'confirm', 'refuse', 'success', 'fail', 'cancelled'], default:"no_confirm", required: true, default:'no_confirm'},
     numberCustomer: [
         {
             adults: {type: Number, required: true},
