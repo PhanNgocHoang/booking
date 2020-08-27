@@ -5,6 +5,7 @@ const MangeRoomController = require("../apps/controllers/admin/manageRoom.contro
 const AdminController = require("../apps/controllers/admin/manageUser.controller");
 const CommentController = require("../apps/controllers/admin/manageComment.controller");
 const BookingsController = require("../apps/controllers/admin/manageBooking.controller")
+const ClientController = require('../apps/controllers/site/client.controller')
 const check = require("../apps/middlewares/check")
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -65,4 +66,21 @@ apiRouter.route('/admin/addBookings')
 apiRouter.route('/admin/editBookings/:id')
         .get(BookingsController.GetUpdate)
         .put(BookingsController.EditBookings)
+apiRouter.route('/getRooms')
+    .get(ClientController.GetRoom)
+apiRouter.route('/getRoomDetail/:roomId')
+    .get(ClientController.getRoomDetail)
+apiRouter.route('/getListMyRoom/:userId')
+    .get(ClientController.GetListMyRoom)
+apiRouter.route('/deleteMyRoom/:roomId')
+    .delete(MangeRoomController.RoomDelete)
+apiRouter.route('/addMyRoom')
+    .post(ClientController.AddMyRoom)
+apiRouter.route('/UpdateMyRoom/:roomId')
+    .get(MangeRoomController.GetUpdate)
+    .put(ClientController.UpdateMyRoom)
+apiRouter.route('/FindBooking')
+    .get(ClientController.FilterBooking)
+apiRouter.route('/bookings/:roomId')
+    .post(ClientController.Bookings)
 module.exports = apiRouter

@@ -5,6 +5,7 @@ const HomeController = require("../apps/controllers/site/home");
 const auth = require("../apps/authentication/auth")
 const passport = require('passport')
 const multer = require('multer')
+const ClientController = require('../apps/controllers/site/client.controller')
 const storage = multer.diskStorage({
   destination: (req, file, cb)=>{
       return cb(null, '/tmp/')

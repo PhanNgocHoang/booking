@@ -10,6 +10,7 @@ const pagination = require("./../../../lib/pagination");
 const Booking = require("../../models/bookings.model");
 const fs = require('fs')
 const path = require('path');
+const Rooms = require("../../models/rooms.model")
 
 exports.getUser = async (req, res, next) => {
   const userId = req.user._id;

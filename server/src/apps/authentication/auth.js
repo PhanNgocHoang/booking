@@ -52,6 +52,7 @@ passport.use(new passportFB({
                 authFacebookID: profile.id,
                 role: 1,
                 name: profile.displayName,
+                photoURL: profile.photos[0].value
             })
             await newUser.save()
             return done(null, newUser)
@@ -66,18 +67,18 @@ passport.use(new GooglePlusToken({
     clientSecret: 'btddoB7SgNgRzsAOkBdz1BkF',
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-
-        const user = await Users.findOne({ authGoogleID: profile.id, authType: "google" })
-        if (user) return done(null, user)
-        const newUser = new Users({
-            authType: "google",
-            email: profile.emails[0].value,
-            authGoogleID: profile.id,
-            role: 1,
-            name: profile.displayName,
-        })
-        await newUser.save()
-        return done(null, newUser)
+        console.log(profile)
+        // const user = await Users.findOne({ authGoogleID: profile.id, authType: "google" })
+        // if (user) return done(null, user)
+        // const newUser = new Users({
+        //     authType: "google",
+        //     email: profile.emails[0].value,
+        //     authGoogleID: profile.id,
+        //     role: 1,
+        //     name: profile.displayName,
+        // })
+        // await newUser.save()
+        // return done(null, newUser)
     } catch (error) {
         done(error, false)
     }
